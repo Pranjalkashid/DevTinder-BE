@@ -19,8 +19,9 @@ const UserSchema = mongoose.Schema(
     emailId: {
       type: String,
       required: true,
-      unique: true,
-      lowerCase: true,
+      // index : true no need of this when unique is used
+      unique: true, // unique index-indexed field in mongo db , when we search using email (findone (emailid)) it becomes faster.
+      lowercase: true,
       trim: true,
       minLength: 5,
       maxLength: 100,
@@ -34,13 +35,11 @@ const UserSchema = mongoose.Schema(
     },
     age: {
       type: Number,
-      required: true,
       min: 18,
       max: 50,
     },
     gender: {
       type: String,
-      required: true,
       validate(value) {
         if (!["male", "female", "other"].includes(value)) {
           throw new Error("gender not valid");
@@ -50,7 +49,9 @@ const UserSchema = mongoose.Schema(
     photoUrl: {
       type: String,
       validate(value) {
-        return validator.isURL(value);
+        if (!Validator.isURL(value)) {
+          throw new Error("Invalid photo URL");
+        }
       },
     },
     about: {
@@ -65,6 +66,8 @@ const UserSchema = mongoose.Schema(
         }
       },
     },
+    resetToken: String,
+    resetTokenExpiry: Date,
   },
   {
     timestamps: true,
@@ -90,5 +93,6 @@ UserSchema.methods.validateUserPassword = async function (
   );
   return isPasswordValid;
 };
+
 const UserModel = new mongoose.model("User", UserSchema);
 module.exports = UserModel;

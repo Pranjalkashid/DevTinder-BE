@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const url =
-  "mongodb+srv://pranjal_db_user:kEsAVleSvAW3UvRh@maincluster.rrncdr4.mongodb.net/DevTinderDB";
+  "mongodb+srv://pranjal_db_user:F7GkGG55XYBQADYl@maincluster.rrncdr4.mongodb.net/DevTinderDB";
 
 async function connectDB() {
   await mongoose.connect(url);

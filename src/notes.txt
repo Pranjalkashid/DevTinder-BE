@@ -1,0 +1,15 @@
+photo url field not working when adding it while sign in 
+/forgotpassword - forgot password api - make this better
+
+H.W: learn about indexes and compound indexes - watch vid its easier and faster
+Learn mongo DB and moongoose library also 
+
+
+Connection Requests sent :- 
+vasudha interested - pravin , pranjal
+vasudha ignore - hardik 
+gitesh interested - ruchita , aditi 
+gitesh ignore - hardik , pranjal
+
+mark - accepted Elon 
+Mark ignore  Bill

@@ -5,22 +5,23 @@ const userAuth = async (req, res, next) => {
   try {
     const { token } = req.cookies;
     if (!token) {
-      throw new Error("invalid token ");
+      return res.status(401).send("Invalid token, please login.");
     }
-    const decodedMsgRecieved = await jwt.verify(token, "DevTinder@");
 
-    const { _id } = decodedMsgRecieved;
+    const decoded = jwt.verify(token, "DevTinder@");
 
-    const userData = await User.findById(_id);
-    if (!userData) {
-      throw new Error("error finding userData");
+    const user = await User.findById(decoded._id);
+
+    if (!user) {
+      return res.status(404).send("User not found");
     }
-    req.userData = userData;
+
+    req.user = user;
 
     next();
   } catch (err) {
-    res.status(400).send("Error:" + err.message);
-    throw new Error(err);
+    return res.status(401).send("Auth Error: " + err.message);
   }
 };
+
 module.exports = userAuth;
